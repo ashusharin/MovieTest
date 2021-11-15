@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
-            android:src="@drawable/logo"
+
         android:contentDescription="@string/poster_film" />
 
     <TextView
@@ -28,7 +28,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Фильм"
-        android:textSize="25sp"/>
+        android:layout_marginTop="3dp"
+        android:layout_marginStart="5dp"
+        android:textSize="20sp"/>
+
+
+        <TextView
+            android:id="@+id/tv_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:text="Длинное описание"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:maxLines="4"
+            android:textSize="15sp"/>
+
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

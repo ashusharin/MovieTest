@@ -7,6 +7,11 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
+
+// Т.к. я не подключил Dagger, то для реализации singleton использую класс MovieApp,
+// наследуемый от Application
+
+
 class MovieApp : Application() {
 
     lateinit var movieApi: MovieApi

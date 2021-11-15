@@ -27,6 +27,7 @@ class RVadapter : RecyclerView.Adapter<RVadapter.MovieItemViewHolder>() {
     class MovieItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var poster = view.findViewById<ImageView>(R.id.imageViewPoster)
         var name = view.findViewById<TextView>(R.id.movieName)
+        var description = view.findViewById<TextView>(R.id.tv_description)
 
 
     }
@@ -41,6 +42,7 @@ class RVadapter : RecyclerView.Adapter<RVadapter.MovieItemViewHolder>() {
         Picasso.get().load(movie.poster).into(holder.poster)
         holder.name.text = movie.name
         Log.d("ресв", "карточка: $position ")
+        holder.description.text = movie.description
     }
 
     override fun getItemCount(): Int {

@@ -36,7 +36,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({
-                    Log.d("данные", "первый пошел")
                      hasMore = it.has_more
                     if (hasMore == true) page += offset
                     for (item in it.results) {
