@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">MovieTest</string>
+    <string name="poster_film">Постер к фильму</string>
+</resources>
