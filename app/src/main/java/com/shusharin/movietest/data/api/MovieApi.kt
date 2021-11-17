@@ -10,4 +10,7 @@ import retrofit2.http.Query
 interface MovieApi {
     @GET("/svc/movies/v2/reviews/all.json")
     fun getMovieList(@Query("api-key") key:String = "7QCIZ4hf7Gu8OalDqfpk6qAbcZNtYKPr", @Query("offset") page:Int): Single<MovieListResponse>
+
+
+
 }

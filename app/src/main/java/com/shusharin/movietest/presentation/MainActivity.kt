@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var adapter: RVadapter
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,8 +42,9 @@ class MainActivity : AppCompatActivity() {
         mainViewModel =
             ViewModelProvider(this).get(MainViewModel::class.java)
 
-        mainViewModel.getMovieList((application as MovieApp).movieApi)
-        mainViewModel.movieListLD.observe(this) {
+        mainViewModel.getMovieList()
+        mainViewModel.getMovieListObserver().observe(this) {
+
             Log.d("ресв", "список в адаптер: $it")
             adapter.movieList = it
         }
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 super.onScrollStateChanged(recyclerView, newState)
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     Log.d("скролл", "конец списка")
-                    mainViewModel.getMovieList((application as MovieApp).movieApi)
+                    mainViewModel.getMovieList()
 
 
                 }

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -49,7 +50,12 @@ dependencies {
 
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.9.0'
 
-    
+//Dagger 2
+    def dagger_version = "2.40.1"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+    implementation "com.google.dagger:dagger:$dagger_version"
+//    annotationProcessor 'com.google.dagger:dagger-compiler:2.40.1'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.40.1'
 
 
     implementation "io.reactivex.rxjava3:rxjava:3.0.0-RC6"
