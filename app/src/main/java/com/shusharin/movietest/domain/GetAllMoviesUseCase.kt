@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData
 
 class GetAllMoviesUseCase(private val movieRepository: MovieRepository) {
 
-    fun GetAllMovies(): LiveData<List<Movie>> {
-        return movieRepository.getAllMovies()
+
+
+    operator fun invoke(){
+        movieRepository.getAllMovies()
     }
+
 }

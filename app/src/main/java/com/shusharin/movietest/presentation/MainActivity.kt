@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setupRecyclerView()
+//        setupRecyclerView()
     }
 
 
@@ -42,40 +42,40 @@ class MainActivity : AppCompatActivity() {
         mainViewModel =
             ViewModelProvider(this).get(MainViewModel::class.java)
 
-        mainViewModel.getMovieList()
-        mainViewModel.getMovieListObserver().observe(this) {
-
-            Log.d("ресв", "список в адаптер: $it")
-            adapter.movieList = it
-        }
+//        mainViewModel.getMovieList()
+//        mainViewModel.getMovieListObserver().observe(this) {
+//
+//            Log.d("ресв", "список в адаптер: $it")
+//            adapter.movieList = it
+//        }
 
 
         return super.onCreateView(parent, name, context, attrs)
     }
 
 
-    private fun setupRecyclerView() {
-        val rvMovieList = findViewById<RecyclerView>(R.id.rvListMovie)
-        adapter = RVadapter()
-        rvMovieList.adapter = adapter
-
-
-//        Слушатель на скролл
-        rvMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            //            Определяет конец списка
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Log.d("скролл", "конец списка")
-                    mainViewModel.getMovieList()
-
-
-                }
-            }
-        })
-
-
-    }
+//    private fun setupRecyclerView() {
+//        val rvMovieList = findViewById<RecyclerView>(R.id.rvListMovie)
+//        adapter = RVadapter()
+//        rvMovieList.adapter = adapter
+//
+//
+////        Слушатель на скролл
+//        rvMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//
+//            //            Определяет конец списка
+//            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+//                super.onScrollStateChanged(recyclerView, newState)
+//
+//                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+//                    Log.d("скролл", "конец списка")
+//                    mainViewModel.getMovieList()
+//                }
+//            }
+//        })
+//
+//
+//    }
 
 
 }

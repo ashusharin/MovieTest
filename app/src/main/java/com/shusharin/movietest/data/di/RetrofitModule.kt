@@ -26,6 +26,7 @@ val BASE_URL = "https://api.nytimes.com"
 
     @Singleton
     @Provides
+    @NYRetrofitClient
     fun provideRetrofit(okHttpClient:OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl(BASE_URL)
