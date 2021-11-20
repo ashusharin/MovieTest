@@ -14,7 +14,6 @@ import com.squareup.picasso.Picasso
 
 class RVadapter : RecyclerView.Adapter<RVadapter.MovieItemViewHolder>() {
 
-    var OnReachEndListener: (() -> Unit)? = null
 
     var movieList = listOf<Movie>()
         set(value) {

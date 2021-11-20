@@ -1,26 +1,15 @@
 package com.shusharin.movietest.presentation
 
-import android.app.Activity
-import android.app.ActivityManager
-import android.app.Application
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_SETTLING
 import com.shusharin.movietest.R
-import com.shusharin.movietest.data.api.MovieApi
-import com.shusharin.movietest.data.api.MovieApp
 import com.shusharin.movietest.data.di.DaggerAppComponent
 import com.shusharin.movietest.data.di.DataModul
-import okhttp3.internal.notifyAll
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -49,19 +38,11 @@ class MainActivity : AppCompatActivity() {
         context: Context,
         attrs: AttributeSet,
     ): View? {
-//        mainViewModel =
-//            ViewModelProvider(this).get(MainViewModel::class.java)
+
         mainViewModel.listMovie.observe(this) {
             Log.d("ресв", "список в адаптер: $it")
             adapter.movieList = it
         }
-//        mainViewModel.getMovieList()
-//        mainViewModel.getMovieListObserver().observe(this) {
-//
-//            Log.d("ресв", "список в адаптер: $it")
-//            adapter.movieList = it
-//        }
-
 
         return super.onCreateView(parent, name, context, attrs)
     }
@@ -81,8 +62,7 @@ class MainActivity : AppCompatActivity() {
                 super.onScrollStateChanged(recyclerView, newState)
 
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    Log.d("скролл", "конец списка")
-                    mainViewModel.getListMovie()
+                    mainViewModel.getNextListMovie()
                 }
             }
         })
