@@ -7,6 +7,8 @@ import retrofit2.http.Header
 import retrofit2.http.Headers
 import retrofit2.http.Query
 
+
+//Service
 interface MovieApi {
 
     @GET("/svc/movies/v2/reviews/all.json")

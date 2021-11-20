@@ -2,13 +2,14 @@ package com.shusharin.movietest.domain
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import javax.inject.Inject
 
-class GetAllMoviesUseCase(private val movieRepository: MovieRepository) {
+class GetAllMoviesUseCase @Inject constructor(private val movieRepository: MovieRepository) {
 
 
 
-    operator fun invoke(){
-        movieRepository.getAllMovies()
+    operator fun invoke():LiveData<List<Movie>>{
+        return movieRepository.getAllMovies()
     }
 
 }

@@ -16,13 +16,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class MainViewModel(private val useCase: GetAllMoviesUseCase) : ViewModel() {
+class MainViewModel @Inject constructor(private val useCase: GetAllMoviesUseCase) {
+    var listMovie: LiveData<List<Movie>> = useCase()
 
+    var page:Int = 0
 
-    fun getListMovie(){
+    fun getListMovie() {
         useCase()
     }
-
 
 
 //    @Inject

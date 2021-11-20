@@ -1,10 +1,13 @@
 package com.shusharin.movietest.data.datasource
 
-import com.shusharin.movietest.data.api.ApiService
+import androidx.lifecycle.LiveData
+import com.shusharin.movietest.data.api.ApiClient
+import com.shusharin.movietest.domain.Movie
+import javax.inject.Inject
 
-class RemoteDataSourceImpl(private val apiService: ApiService):RemoteDataSource {
+class RemoteDataSourceImpl @Inject constructor(private val apiClient: ApiClient):RemoteDataSource {
 
-    override fun getAllMovies() {
-        apiService.getMovies()
+    override fun getAllMovies(): LiveData<List<Movie>> {
+       return apiClient.getMovies()
     }
 }

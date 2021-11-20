@@ -1,4 +1,5 @@
 package com.shusharin.movietest.data.datasource
 
-class LocalDataSource {
+interface LocalDataSource {
+    fun getMoviesFromDB()
 }

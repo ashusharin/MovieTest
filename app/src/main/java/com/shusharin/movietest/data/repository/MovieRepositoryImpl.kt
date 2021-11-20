@@ -6,15 +6,16 @@ import com.shusharin.movietest.data.datasource.LocalDataSource
 import com.shusharin.movietest.data.datasource.RemoteDataSource
 import com.shusharin.movietest.domain.Movie
 import com.shusharin.movietest.domain.MovieRepository
+import javax.inject.Inject
 
-class MovieRepositoryImpl(
+class MovieRepositoryImpl @Inject constructor(
     private val localDataSource: LocalDataSource,
     private val remoteDataSource: RemoteDataSource,
 ) : MovieRepository {
 
 
     override fun getAllMovies(): LiveData<List<Movie>> {
-        remoteDataSource.getAllMovies()
-        return MutableLiveData<List<Movie>>()
+        localDataSource.getMoviesFromDB()
+        return remoteDataSource.getAllMovies()
     }
 }

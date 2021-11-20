@@ -16,11 +16,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class MovieApp : Application() {
 
-    lateinit var appComponent: AppComponent
+//    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.create()
+//        appComponent = DaggerAppComponent.create()
     }
 
 
