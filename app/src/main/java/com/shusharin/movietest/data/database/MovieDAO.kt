@@ -12,9 +12,9 @@ interface MovieDAO {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPokemonList(pokemonList: List<Movie>)
+    suspend fun insertPokemonList(movieList: List<MovieDbModel>)
 
 
-    @Query("SELECT * FROM MovieDdModel")
-    suspend fun getMovieList(page_: Int): List<Movie>
+    @Query("SELECT * FROM MovieDbModel")
+    suspend fun getMovieList(): List<MovieDbModel>
 }

@@ -7,7 +7,7 @@ import dagger.Subcomponent
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [RetrofitModule::class, DataModul::class,DomainModul::class])
+@Component(modules = [RetrofitModule::class, DataModul::class,DomainModul::class, DatabaseModule::class])
 interface AppComponent {
 
     fun inject(mainViewModel: MainViewModel)
