@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.shusharin.movietest.R
 import com.shusharin.movietest.data.di.DaggerAppComponent
 import com.shusharin.movietest.data.di.DataModul
+import com.shusharin.movietest.data.di.DatabaseModule
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,7 @@ class MainActivity : AppCompatActivity() {
 
     private val appComponent by lazy {
         DaggerAppComponent.builder()
-            .dataModul(DataModul(application)).build()
+            .databaseModule(DatabaseModule(application)).build()
     }
     private lateinit var adapter: RVadapter
 
