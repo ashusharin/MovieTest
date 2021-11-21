@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.shusharin.movietest.data.database.AppDatabase
 import com.shusharin.movietest.data.database.MovieDAO
+import com.shusharin.movietest.data.mapper.MovieMapper
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
@@ -21,6 +22,7 @@ class DatabaseModule(private val application: Application) {
     ): AppDatabase {
         return Room
             .databaseBuilder(application, AppDatabase::class.java, "Movie.db")
+            .allowMainThreadQueries()
             .build()
     }
 
@@ -29,6 +31,8 @@ class DatabaseModule(private val application: Application) {
     fun provideMovieDao(appDatabase: AppDatabase): MovieDAO {
         return appDatabase.movieDao()
     }
+
+
 
     @Provides
     fun provideApplication():Application{

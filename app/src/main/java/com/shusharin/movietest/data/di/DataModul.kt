@@ -11,7 +11,7 @@ import dagger.Provides
 
 //Application передаем в качестве параметра для ретрофит. Вызов DaggerAppComponent через Build()
 @Module
-class DataModul(private val application: Application) {
+class DataModul() {
 
 
 

@@ -26,8 +26,7 @@ class MovieRepositoryImpl @Inject constructor(
     private var hasMore: Boolean? = null
 
     override fun getAllMovies(): LiveData<List<Movie>> {
-        var movieList = mapper.mapListDbModeltoListEntity(localDataSource.getMoviesFromDB())
-
+        val movieList = mapper.mapListDbModeltoListEntity(localDataSource.getMoviesFromDB())
 
         if (movieList.isEmpty()) {
             val response = remoteDataSource.getAllMovies()
@@ -47,6 +46,7 @@ class MovieRepositoryImpl @Inject constructor(
                         _movieList.add(movie)
                     }
                     updateList()
+                    localDataSource.insertMoviesInDB(_movieList)
                     Log.d("Network", "Getting list: ${listMovieLD.value}")
                 },
                     {
