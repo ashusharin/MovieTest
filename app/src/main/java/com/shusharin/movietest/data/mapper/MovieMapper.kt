@@ -23,4 +23,8 @@ class MovieMapper @Inject constructor() {
     fun mapListDbModeltoListEntity(list:List<MovieDbModel>) =list.map{
         mapDbModelToEntity(it)
     }
+
+    fun mapListEntityToListDbModel(list:List<Movie>) =list.map{
+        mapEntityToDbModel(it)
+    }
 }
