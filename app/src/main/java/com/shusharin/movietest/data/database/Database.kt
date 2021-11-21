@@ -1,11 +1,17 @@
 package com.shusharin.movietest.data.database
 
-import android.util.Log
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import javax.inject.Inject
 
-class Database @Inject constructor() {
+class Database @Inject constructor(private val movieDao: MovieDAO) {
+    fun getMoviesFromDB(): List<MovieDbModel> {
 
-    fun getMoviesFromDB() {
-        Log.d("тестирование", "Database().getMoviesFromDB()")
+        return movieDao.getMovieList()
+
+
+
+
     }
 }

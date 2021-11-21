@@ -25,4 +25,5 @@ class DataModul(private val application: Application) {
     fun provideRemoteDataSource(impl: RemoteDataSourceImpl): RemoteDataSource{
         return impl
     }
+
 }

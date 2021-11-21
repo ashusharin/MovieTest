@@ -10,7 +10,7 @@ import javax.inject.Singleton
 
 
 @Module
-class DatabaseModule {
+class DatabaseModule(private val application: Application) {
 
 
 
@@ -28,6 +28,11 @@ class DatabaseModule {
     @Singleton
     fun provideMovieDao(appDatabase: AppDatabase): MovieDAO {
         return appDatabase.movieDao()
+    }
+
+    @Provides
+    fun provideApplication():Application{
+        return application
     }
 
 
