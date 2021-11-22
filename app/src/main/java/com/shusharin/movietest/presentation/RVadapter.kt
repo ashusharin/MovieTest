@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.shusharin.movietest.R
+import com.shusharin.movietest.databinding.MovieCardBinding
 import com.shusharin.movietest.domain.Movie
 import com.squareup.picasso.Picasso
 
@@ -23,25 +24,27 @@ class RVadapter : RecyclerView.Adapter<RVadapter.MovieItemViewHolder>() {
             field = value
         }
 
-    class MovieItemViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var poster = view.findViewById<ImageView>(R.id.imageViewPoster)
-        var name = view.findViewById<TextView>(R.id.movieName)
-        var description = view.findViewById<TextView>(R.id.tv_description)
+    class MovieItemViewHolder(val binding: MovieCardBinding) : RecyclerView.ViewHolder(binding.root) {
+
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieItemViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_card, parent, false)
-        return MovieItemViewHolder(view)
+        val binding = MovieCardBinding.inflate(LayoutInflater.from(parent.context),
+        parent,false)
+
+        return MovieItemViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: MovieItemViewHolder, position: Int) {
         val movie = movieList[position]
-        Picasso.get().load(movie.poster).into(holder.poster)
-        holder.name.text = movie.name
-        Log.d("ресв", "карточка: $position ")
-        holder.description.text = movie.description
+        val binding = holder.binding
+        Picasso.get().load(movie.poster).into(binding.imageViewPoster)
+        binding.movieName.text = movie.name
+        Log.d("Recyclerview", "holder: $position ")
+        binding.tvDescription.text = movie.description
+
     }
 
     override fun getItemCount(): Int {
@@ -51,7 +54,8 @@ class RVadapter : RecyclerView.Adapter<RVadapter.MovieItemViewHolder>() {
 
     override fun onViewRecycled(viewHolder: MovieItemViewHolder) {
         super.onViewRecycled(viewHolder)
-        viewHolder.poster.setImageResource(0);
+        val binding = viewHolder.binding
+            binding.imageViewPoster.setImageResource(0);
 
     }
 
