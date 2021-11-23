@@ -1,26 +1,34 @@
 package com.shusharin.movietest.presentation
 
 import android.os.Bundle
+import android.widget.ProgressBar
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.RecyclerView
 import com.shusharin.movietest.R
 import com.shusharin.movietest.data.di.DaggerAppComponent
 import com.shusharin.movietest.data.di.DatabaseModule
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.collectLatest
 import javax.inject.Inject
+import javax.inject.Provider
 
 class MainActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var mainViewModel: MainViewModel
+    lateinit var viewModelProvider: Provider<MainViewModel.Factory>
+
+    private val mainViewModel: MainViewModel by viewModels { viewModelProvider.get() }
 
     private val appComponent by lazy {
         DaggerAppComponent.builder()
             .databaseModule(DatabaseModule(application)).build()
     }
-    private lateinit var adapter: RVadapter
+    private val adapter by lazy(LazyThreadSafetyMode.NONE) {
+        RVadapter()
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,15 +36,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupRecyclerView()
-
-
         lifecycleScope.launchWhenStarted {
-            mainViewModel.movieListFlow
-                .onEach {
-                    adapter.movieList = it
-
-                }
-                .collect()
+            mainViewModel.movieList.collectLatest(adapter::submitData)
         }
 
     }
@@ -44,25 +45,24 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         val rvMovieList = findViewById<RecyclerView>(R.id.rvListMovie)
-        adapter = RVadapter()
-        rvMovieList.adapter = adapter
+        val progressBar = findViewById<ProgressBar>(R.id.progress)
 
+        rvMovieList.adapter = adapter.withLoadStateHeaderAndFooter(
+            header = LoaderStateAdapter(),
+            footer = LoaderStateAdapter()
+        )
+        adapter.addLoadStateListener { state ->
 
-//        Слушатель на скролл
-        rvMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-
-            //            Определяет конец списка
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-
-                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    mainViewModel.fetchNextPokemonList()
-                }
-            }
-        })
-
-
+            rvMovieList.isVisible = state.refresh != LoadState.Loading
+            progressBar.isVisible = state.refresh == LoadState.Loading
+        }
     }
 
 
+
+
+
 }
+
+
+

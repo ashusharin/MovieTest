@@ -24,35 +24,8 @@ class MovieRepositoryImpl @Inject constructor(
     override fun getAllMovies(
         page: Int,
     ): Flow<List<Movie>> = flow {
-        val movieList = localDataSource.getMoviesFromDB(page).toMutableList()
 
-        if (movieList.isEmpty()) {
-            movieList.toMutableList()
-            val response = remoteDataSource.getAllMovies(page)
-            response.suspendOnSuccess {
-                data.results.forEach {
-                    val name = it.display_title
-                    val description = it.summary_short
-                    val poster = it.multimedia.src
-                    val movie = Movie(name, description, poster, page)
-                    movieList.add(movie)
-                    localDataSource.insertMoviesInDB(movieList)
-
-                }
-                emit(localDataSource.getMoviesFromDB(page))
-            }
-                .onError {
-                    Log.d("Suspend function", "Error")
-                }
-                .onException {
-                    Log.d("Suspend function", "Exception")
-                }
-
-
-        } else {
-            emit(localDataSource.getMoviesFromDB(page))
-
-        }
+        emit(localDataSource.getMoviesFromDB(page))
 
     }.flowOn(Dispatchers.IO)
 }

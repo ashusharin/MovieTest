@@ -1,9 +1,11 @@
 package com.shusharin.movietest.data.datasource
 
-import com.shusharin.movietest.data.api.MovieListResponse
-import com.skydoves.sandwich.ApiResponse
+import androidx.paging.PagingData
+import com.shusharin.movietest.domain.Movie
+import kotlinx.coroutines.flow.Flow
+
 
 interface RemoteDataSource {
 
-    suspend fun getAllMovies(page:Int): ApiResponse<MovieListResponse>
+    suspend fun getAllMovies(page:Int): Flow<PagingData<Movie>>
 }

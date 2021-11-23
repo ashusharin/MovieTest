@@ -17,7 +17,7 @@ interface MovieApi {
     suspend fun getMovieList(
         @Query("api-key") key: String = "7QCIZ4hf7Gu8OalDqfpk6qAbcZNtYKPr",
         @Query("offset") page: Int,
-    ): ApiResponse<MovieListResponse>
+    ): Response<MovieListResponse>
 
 
 

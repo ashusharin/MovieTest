@@ -1,7 +1,5 @@
 package com.shusharin.movietest.data.api
 
-import com.skydoves.sandwich.ApiResponse
-import io.reactivex.Single
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -11,9 +9,11 @@ class ApiClient @Inject constructor(
 ) {
 
 
+val offset = 20
 
 
-   suspend fun getMovies(page:Int): ApiResponse<MovieListResponse> {
-        return movieApi.getMovieList(page = page)
+   suspend fun getMovies(page:Int): Response<MovieListResponse> {
+        return movieApi.getMovieList(page = page*offset)
     }
 }
+
