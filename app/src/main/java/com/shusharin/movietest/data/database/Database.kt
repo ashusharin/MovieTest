@@ -5,14 +5,14 @@ import com.shusharin.movietest.data.mapper.MovieMapper
 import com.shusharin.movietest.domain.Movie
 import javax.inject.Inject
 
-class Database @Inject constructor(private val movieDao: MovieDAO, private val mapper:MovieMapper) {
+class Database @Inject constructor(private val movieDao: MovieDAO) {
 
-    fun getMoviesFromDB(): List<MovieDbModel> {
-        return movieDao.getMovieList()
+    suspend fun getMoviesFromDB(page:Int): List<MovieDbModel> {
+        return movieDao.getMovieList(page)
     }
 
-    fun insertMoviesInDB(movieList:List<Movie>){
-        movieDao.insertMovieList(mapper.mapListEntityToListDbModel(movieList))
+    suspend fun insertMoviesInDB(movieList:List<MovieDbModel>){
+        movieDao.insertMovieList(movieList)
     }
 
 }

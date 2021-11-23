@@ -10,4 +10,5 @@ data class MovieDbModel @Inject constructor(
     val name: String,
     val description: String,
     val poster: String,
+    var page: Int = 0
 )

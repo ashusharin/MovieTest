@@ -1,16 +1,14 @@
 package com.shusharin.movietest.presentation
 
-import android.content.Context
 import android.os.Bundle
-import android.util.AttributeSet
-import android.util.Log
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.shusharin.movietest.R
 import com.shusharin.movietest.data.di.DaggerAppComponent
-import com.shusharin.movietest.data.di.DataModul
 import com.shusharin.movietest.data.di.DatabaseModule
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -30,22 +28,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupRecyclerView()
-    }
 
 
-    override fun onCreateView(
-        parent: View?,
-        name: String,
-        context: Context,
-        attrs: AttributeSet,
-    ): View? {
+        lifecycleScope.launchWhenStarted {
+            mainViewModel.movieListFlow
+                .onEach {
+                    adapter.movieList = it
 
-        mainViewModel.listMovie.observe(this) {
-            Log.d("ресв", "список в адаптер: $it")
-            adapter.movieList = it
+                }
+                .collect()
         }
 
-        return super.onCreateView(parent, name, context, attrs)
     }
 
 
@@ -63,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 super.onScrollStateChanged(recyclerView, newState)
 
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
-                    mainViewModel.getNextListMovie()
+                    mainViewModel.fetchNextPokemonList()
                 }
             }
         })

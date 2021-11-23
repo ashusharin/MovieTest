@@ -1,19 +1,19 @@
 package com.shusharin.movietest.data.datasource
 
 
-import androidx.lifecycle.LiveData
 import com.shusharin.movietest.data.database.Database
-import com.shusharin.movietest.data.database.MovieDbModel
+import com.shusharin.movietest.data.mapper.MovieMapper
 import com.shusharin.movietest.domain.Movie
 import javax.inject.Inject
 
-class LocalDataSourceImpl @Inject constructor(private val database: Database) : LocalDataSource {
+class LocalDataSourceImpl @Inject constructor(private val database: Database,
+private val mapper:MovieMapper) : LocalDataSource {
 
-    override fun getMoviesFromDB(): List<MovieDbModel> {
-     return  database.getMoviesFromDB()
+    override suspend fun getMoviesFromDB(page:Int): List<Movie> {
+     return  mapper.mapListDbModeltoListEntity(database.getMoviesFromDB(page))
     }
 
-    override fun insertMoviesInDB(movieList:List<Movie>) {
-        database.insertMoviesInDB(movieList)
+    override suspend fun insertMoviesInDB(movieList:List<Movie>) {
+        database.insertMoviesInDB(mapper.mapListEntityToListDbModel(movieList))
     }
 }

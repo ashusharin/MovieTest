@@ -12,9 +12,9 @@ interface MovieDAO {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertMovieList(movieList: List<MovieDbModel>)
+    suspend fun insertMovieList(movieList: List<MovieDbModel>)
 
 
-    @Query("SELECT * FROM MovieDbModel")
-    fun getMovieList(): List<MovieDbModel>
+    @Query("SELECT * FROM MovieDbModel WHERE page = :page")
+    suspend fun getMovieList(page:Int): List<MovieDbModel>
 }

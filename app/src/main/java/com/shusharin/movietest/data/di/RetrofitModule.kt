@@ -2,6 +2,7 @@ package com.shusharin.movietest.data.di
 
 import com.shusharin.movietest.data.api.ApiClient
 import com.shusharin.movietest.data.api.MovieApi
+import com.skydoves.sandwich.coroutines.CoroutinesResponseCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -41,7 +42,7 @@ class RetrofitModule {
             .baseUrl(BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutinesResponseCallAdapterFactory.create())
             .build()
     }
 

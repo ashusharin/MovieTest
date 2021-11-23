@@ -1,11 +1,9 @@
 package com.shusharin.movietest.data.datasource
 
-import androidx.lifecycle.LiveData
 import com.shusharin.movietest.data.api.MovieListResponse
-import com.shusharin.movietest.domain.Movie
-import io.reactivex.Single
+import com.skydoves.sandwich.ApiResponse
 
 interface RemoteDataSource {
 
-    fun getAllMovies(): Single<MovieListResponse>
+    suspend fun getAllMovies(page:Int): ApiResponse<MovieListResponse>
 }

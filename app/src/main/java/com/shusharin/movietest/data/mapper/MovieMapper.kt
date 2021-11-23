@@ -10,14 +10,16 @@ class MovieMapper @Inject constructor() {
     fun mapEntityToDbModel(movie: Movie):MovieDbModel = MovieDbModel(
         name = movie.name,
         description = movie.description,
-        poster = movie.poster
+        poster = movie.poster,
+        page = movie.page
     )
 
 
     fun mapDbModelToEntity(movieDbModel: MovieDbModel):Movie = Movie(
         name = movieDbModel.name,
         description = movieDbModel.description,
-        poster = movieDbModel.poster
+        poster = movieDbModel.poster,
+        page = movieDbModel.page
     )
 
     fun mapListDbModeltoListEntity(list:List<MovieDbModel>) =list.map{

@@ -5,7 +5,7 @@ import com.shusharin.movietest.data.database.MovieDbModel
 import com.shusharin.movietest.domain.Movie
 
 interface LocalDataSource {
-    fun getMoviesFromDB(): List<MovieDbModel>
+    suspend fun getMoviesFromDB(page:Int): List<Movie>
 
-    fun insertMoviesInDB(movieList:List<Movie>)
+    suspend fun insertMoviesInDB(movieList:List<Movie>)
 }

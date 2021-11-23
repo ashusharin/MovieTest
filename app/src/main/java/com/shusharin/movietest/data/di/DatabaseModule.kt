@@ -22,7 +22,7 @@ class DatabaseModule(private val application: Application) {
     ): AppDatabase {
         return Room
             .databaseBuilder(application, AppDatabase::class.java, "Movie.db")
-            .allowMainThreadQueries()
+            .fallbackToDestructiveMigration()
             .build()
     }
 
